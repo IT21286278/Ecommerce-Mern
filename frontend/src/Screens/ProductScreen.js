@@ -8,6 +8,9 @@ import ListGroup from 'react-bootstrap/esm/ListGroup';
 import Card from 'react-bootstrap/esm/Card';
 import Button from 'react-bootstrap/esm/Button';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { getError } from '../util';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -31,6 +34,7 @@ function ProductScreen() {
     loading: true,
     error: '',
   });
+
   //const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +43,7 @@ function ProductScreen() {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (error) {
-        dispatch({ type: 'FETCH_FAIL', payload: error.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(error) });
       }
 
       //setProducts(result.data);
@@ -48,9 +52,9 @@ function ProductScreen() {
   }, [slug]);
 
   return loading ? (
-    <div>loading...</div>
+    <LoadingBox />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
       <Row>
@@ -61,6 +65,7 @@ function ProductScreen() {
             alt={product.name}
           ></img>
         </Col>
+
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
@@ -75,11 +80,13 @@ function ProductScreen() {
                 numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
+            <ListGroup.Item>Price : ${product.price}</ListGroup.Item>
             <ListGroup.Item>
               Description : <p>{product.description}</p>
             </ListGroup.Item>
           </ListGroup>
         </Col>
+
         <Col md={3}>
           <Card>
             <Card.Body>
