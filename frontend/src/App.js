@@ -20,7 +20,7 @@ function App() {
         </header>
 
         <main>
-          <Container>
+          <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" exact element={<ProductScreen />} />
               <Route path="/" exact element={<HomeScreen />} />

@@ -50,10 +50,16 @@
    3. get state from useReducer
 
 10. Add Bootstrao UI Framework
-11. npm install react-bootstrap
-12. update App.js
 
-13. Create product and rating component
-14. create rating component
-15. areate product component
-16. use rating component in product component
+    1.npm install react-bootstrap
+    2.update App.js
+
+11. Create product and rating component
+
+    1.create rating component
+    2.areate product component
+    3.use rating component in product component
+
+12. Create Product Details Screen
+    1.fetch products from backend
+    2.create 3 columns for image, info and action
